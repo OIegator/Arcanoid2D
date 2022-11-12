@@ -26,24 +26,28 @@ public class PlayerScript : MonoBehaviour
     public GameDataScript gameData;
 
     static bool gameStarted = false;
+
+    // Флаг для перехода на экран конца игры
     public static bool gameFinished = false;
 
     public static AudioSource audioSrc;
     public AudioClip pointSound;
 
-
     public static bool GameIsPaused = false;
 
+    // Поля привязки скрипта к слайдеру и чекбоксу для звука
     [SerializeField]
     Toggle soundToggle;
     [SerializeField]
     Slider soundSlider;
 
+    // Поля привязки скрипта к слайдеру и чекбоксу для музыки
     [SerializeField]
     Toggle musicToggle;
     [SerializeField]
     Slider musicSlider;
 
+    // Флаг нажатой паузы
     public GameObject pauseMenuUI;
 
     void CreateBlocks(GameObject prefab, float xMax, float yMax, int count, int maxCount)
@@ -104,7 +108,7 @@ public class PlayerScript : MonoBehaviour
                 gameData.Save();
                 SceneManager.LoadScene("MainScene");
             }
-            if(level == maxLevel)
+            if(level == maxLevel) // Проверка завершения игры и переход на экран конца игры
             {
                 gameFinished = true;
                 gameData.Save();
@@ -121,7 +125,7 @@ public class PlayerScript : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
             if (gameData.balls > 0)
                 CreateBalls(0);
-            else
+            else // В случае проигрыша игрока выбрасывает на стартовый экран
             {
                 gameData.Reset();
                 gameData.Save();
@@ -139,13 +143,15 @@ public class PlayerScript : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(0.2f);
-            audioSrc.PlayOneShot(pointSound, gameData.soundVolume * (1 / audioSrc.volume));
+            // Громкость воспроизведения завист от из значения ползунка громкости звука и его нормализации относительно ползунка громкости музыки. Данные об их значениях берутся из gameData
+            audioSrc.PlayOneShot(pointSound, gameData.soundVolume * (1 / audioSrc.volume)); 
         }
     }
     public void BlockDestroyed(int points, string name, Vector3 pos)
     {
         gameData.points += points;
         if (gameData.sound)
+            // Громкость воспроизведения завист от из значения ползунка громкости звука и его нормализации относительно ползунка громкости музыки. Данные об их значениях берутся из gameData
             audioSrc.PlayOneShot(pointSound, gameData.soundVolume * (1 / audioSrc.volume));
         gameData.pointsToBall += points;
         if (gameData.pointsToBall >= requiredPointsToBall)
@@ -225,6 +231,7 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+    // Включение и выключение воспроизведения музыки и перевод чекбокса в соответстующие положение при инициализации из памяти
     void SetMusic()
     {
         audioSrc.volume = gameData.musicVolume;
@@ -266,6 +273,7 @@ public class PlayerScript : MonoBehaviour
             if (gameData.resetOnStart)
                 gameData.Load();
         }
+        // Вместе со стартом игры ползунки и чекбоксы принимают сохраненные значения из gameData
         soundToggle.isOn = gameData.sound;
         soundSlider.value = gameData.soundVolume;
         musicToggle.isOn = gameData.music;
@@ -298,6 +306,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
             Restart();
 
+        // Открытие меню паузы
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -307,17 +316,20 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    // Обработчик слайдера со звуком для записи значения в gameData
     public void SetSoundVolume()
     {
         gameData.soundVolume = (int)soundSlider.value;
     }
 
+    // Обработчик слайдера с музыкой для записи значения в gameData
     public void SetMusicVolume()
     {
         audioSrc.volume = musicSlider.value;
         gameData.musicVolume = audioSrc.volume;
     }
 
+    // Обработчик чекбокса со звуком и записью в gameData
     public void SetMusicToggle()
     {
         if (musicToggle.isOn)
@@ -332,6 +344,8 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+
+    // Обработчик чебкокса с музыкой и записью в gameData
     public void SetSoundToggle()
     {
         if (soundToggle.isOn)
@@ -340,14 +354,17 @@ public class PlayerScript : MonoBehaviour
             gameData.sound = false;
     }
 
+
+    // Обработчик кнорпки рестарта. 
     public void Restart()
     {
-        gameData.Reset();
-        gameData.Save();
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
+        gameData.Reset(); // Обнуление gameData
+        gameData.Save(); // И ее перезапись
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("Menu"); // Возврат к стартовому меню
     }
 
+    // Обработчик снятия игры с паузы и установки соответстующиего флага
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
@@ -355,6 +372,7 @@ public class PlayerScript : MonoBehaviour
         GameIsPaused = false;
     }
 
+    // Обработчик постановки игры на паузу и установки соответстующиего флага
     void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -362,6 +380,7 @@ public class PlayerScript : MonoBehaviour
         GameIsPaused = true;
     }
 
+    // Обработчик кнопки выхода из игры
     public void QuitGame()
     {
         Application.Quit();

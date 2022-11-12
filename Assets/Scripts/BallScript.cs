@@ -52,6 +52,7 @@ public class BallScript : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (gameData.sound)
+            // Громкость воспроизведения завист от из значения ползунка громкости звука и его нормализации относительно ползунка громкости музыки. Данные об их значениях берутся из gameData
             audioSrc.PlayOneShot(hitSound, gameData.soundVolume * (1 / audioSrc.volume));
     }
 
@@ -60,6 +61,7 @@ public class BallScript : MonoBehaviour
         if (other.gameObject.CompareTag("Wall"))
         {
             if (gameData.sound)
+                // Громкость воспроизведения завист от из значения ползунка громкости звука и его нормализации относительно ползунка громкости музыки. Данные об их значениях берутся из gameData
                 audioSrc.PlayOneShot(loseSound, gameData.soundVolume * (1 / audioSrc.volume));
             Destroy(gameObject);
             playerObj.GetComponent<PlayerScript>().BallDestroyed();

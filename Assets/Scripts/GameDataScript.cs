@@ -10,10 +10,10 @@ public class GameDataScript : ScriptableObject
     public int balls = 6;
     public int points = 0;
     public int pointsToBall = 0;
-    public bool music = true;
-    public bool sound = true;
-    public int soundVolume = 1;
-    public float musicVolume = 0.2f;
+    public bool music = true; // Флаг вкюченной музыки
+    public bool sound = true; // Флаг вкюченного звука
+    public int soundVolume = 1; // Значения ползунка громкости звука
+    public float musicVolume = 0.2f; // Значения ползунка громкости музыки
 
     public void Reset()
     {
