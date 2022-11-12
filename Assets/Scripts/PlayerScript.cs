@@ -27,7 +27,7 @@ public class PlayerScript : MonoBehaviour
 
     static bool gameStarted = false;
 
-    // Флаг для перехода на экран конца игры
+    // Р¤Р»Р°Рі РґР»СЏ РїРµСЂРµС…РѕРґР° РЅР° СЌРєСЂР°РЅ РєРѕРЅС†Р° РёРіСЂС‹
     public static bool gameFinished = false;
 
     public static AudioSource audioSrc;
@@ -35,19 +35,19 @@ public class PlayerScript : MonoBehaviour
 
     public static bool GameIsPaused = false;
 
-    // Поля привязки скрипта к слайдеру и чекбоксу для звука
+    // РџРѕР»СЏ РїСЂРёРІСЏР·РєРё СЃРєСЂРёРїС‚Р° Рє СЃР»Р°Р№РґРµСЂСѓ Рё С‡РµРєР±РѕРєСЃСѓ РґР»СЏ Р·РІСѓРєР°
     [SerializeField]
     Toggle soundToggle;
     [SerializeField]
     Slider soundSlider;
 
-    // Поля привязки скрипта к слайдеру и чекбоксу для музыки
+    // РџРѕР»СЏ РїСЂРёРІСЏР·РєРё СЃРєСЂРёРїС‚Р° Рє СЃР»Р°Р№РґРµСЂСѓ Рё С‡РµРєР±РѕРєСЃСѓ РґР»СЏ РјСѓР·С‹РєРё
     [SerializeField]
     Toggle musicToggle;
     [SerializeField]
     Slider musicSlider;
 
-    // Флаг нажатой паузы
+    // Р¤Р»Р°Рі РЅР°Р¶Р°С‚РѕР№ РїР°СѓР·С‹
     public GameObject pauseMenuUI;
 
     void CreateBlocks(GameObject prefab, float xMax, float yMax, int count, int maxCount)
@@ -108,7 +108,7 @@ public class PlayerScript : MonoBehaviour
                 gameData.Save();
                 SceneManager.LoadScene("MainScene");
             }
-            if(level == maxLevel) // Проверка завершения игры и переход на экран конца игры
+            if(level == maxLevel) // РџСЂРѕРІРµСЂРєР° Р·Р°РІРµСЂС€РµРЅРёСЏ РёРіСЂС‹ Рё РїРµСЂРµС…РѕРґ РЅР° СЌРєСЂР°РЅ РєРѕРЅС†Р° РёРіСЂС‹
             {
                 gameFinished = true;
                 gameData.Save();
@@ -125,7 +125,7 @@ public class PlayerScript : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
             if (gameData.balls > 0)
                 CreateBalls(0);
-            else // В случае проигрыша игрока выбрасывает на стартовый экран
+            else // Р’ СЃР»СѓС‡Р°Рµ РїСЂРѕРёРіСЂС‹С€Р° РёРіСЂРѕРєР° РІС‹Р±СЂР°СЃС‹РІР°РµС‚ РЅР° СЃС‚Р°СЂС‚РѕРІС‹Р№ СЌРєСЂР°РЅ
             {
                 gameData.Reset();
                 gameData.Save();
@@ -143,7 +143,7 @@ public class PlayerScript : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(0.2f);
-            // Громкость воспроизведения завист от из значения ползунка громкости звука и его нормализации относительно ползунка громкости музыки. Данные об их значениях берутся из gameData
+            // Р“СЂРѕРјРєРѕСЃС‚СЊ РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёСЏ Р·Р°РІРёСЃС‚ РѕС‚ РёР· Р·РЅР°С‡РµРЅРёСЏ РїРѕР»Р·СѓРЅРєР° РіСЂРѕРјРєРѕСЃС‚Рё Р·РІСѓРєР° Рё РµРіРѕ РЅРѕСЂРјР°Р»РёР·Р°С†РёРё РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РїРѕР»Р·СѓРЅРєР° РіСЂРѕРјРєРѕСЃС‚Рё РјСѓР·С‹РєРё. Р”Р°РЅРЅС‹Рµ РѕР± РёС… Р·РЅР°С‡РµРЅРёСЏС… Р±РµСЂСѓС‚СЃСЏ РёР· gameData
             audioSrc.PlayOneShot(pointSound, gameData.soundVolume * (1 / audioSrc.volume)); 
         }
     }
@@ -151,7 +151,7 @@ public class PlayerScript : MonoBehaviour
     {
         gameData.points += points;
         if (gameData.sound)
-            // Громкость воспроизведения завист от из значения ползунка громкости звука и его нормализации относительно ползунка громкости музыки. Данные об их значениях берутся из gameData
+            // Р“СЂРѕРјРєРѕСЃС‚СЊ РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёСЏ Р·Р°РІРёСЃС‚ РѕС‚ РёР· Р·РЅР°С‡РµРЅРёСЏ РїРѕР»Р·СѓРЅРєР° РіСЂРѕРјРєРѕСЃС‚Рё Р·РІСѓРєР° Рё РµРіРѕ РЅРѕСЂРјР°Р»РёР·Р°С†РёРё РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РїРѕР»Р·СѓРЅРєР° РіСЂРѕРјРєРѕСЃС‚Рё РјСѓР·С‹РєРё. Р”Р°РЅРЅС‹Рµ РѕР± РёС… Р·РЅР°С‡РµРЅРёСЏС… Р±РµСЂСѓС‚СЃСЏ РёР· gameData
             audioSrc.PlayOneShot(pointSound, gameData.soundVolume * (1 / audioSrc.volume));
         gameData.pointsToBall += points;
         if (gameData.pointsToBall >= requiredPointsToBall)
@@ -231,7 +231,7 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    // Включение и выключение воспроизведения музыки и перевод чекбокса в соответстующие положение при инициализации из памяти
+    // Р’РєР»СЋС‡РµРЅРёРµ Рё РІС‹РєР»СЋС‡РµРЅРёРµ РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёСЏ РјСѓР·С‹РєРё Рё РїРµСЂРµРІРѕРґ С‡РµРєР±РѕРєСЃР° РІ СЃРѕРѕС‚РІРµС‚СЃС‚СѓСЋС‰РёРµ РїРѕР»РѕР¶РµРЅРёРµ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РёР· РїР°РјСЏС‚Рё
     void SetMusic()
     {
         audioSrc.volume = gameData.musicVolume;
@@ -273,7 +273,7 @@ public class PlayerScript : MonoBehaviour
             if (gameData.resetOnStart)
                 gameData.Load();
         }
-        // Вместе со стартом игры ползунки и чекбоксы принимают сохраненные значения из gameData
+        // Р’РјРµСЃС‚Рµ СЃРѕ СЃС‚Р°СЂС‚РѕРј РёРіСЂС‹ РїРѕР»Р·СѓРЅРєРё Рё С‡РµРєР±РѕРєСЃС‹ РїСЂРёРЅРёРјР°СЋС‚ СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РёР· gameData
         soundToggle.isOn = gameData.sound;
         soundSlider.value = gameData.soundVolume;
         musicToggle.isOn = gameData.music;
@@ -306,7 +306,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
             Restart();
 
-        // Открытие меню паузы
+        // РћС‚РєСЂС‹С‚РёРµ РјРµРЅСЋ РїР°СѓР·С‹
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -316,20 +316,20 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    // Обработчик слайдера со звуком для записи значения в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє СЃР»Р°Р№РґРµСЂР° СЃРѕ Р·РІСѓРєРѕРј РґР»СЏ Р·Р°РїРёСЃРё Р·РЅР°С‡РµРЅРёСЏ РІ gameData
     public void SetSoundVolume()
     {
         gameData.soundVolume = (int)soundSlider.value;
     }
 
-    // Обработчик слайдера с музыкой для записи значения в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє СЃР»Р°Р№РґРµСЂР° СЃ РјСѓР·С‹РєРѕР№ РґР»СЏ Р·Р°РїРёСЃРё Р·РЅР°С‡РµРЅРёСЏ РІ gameData
     public void SetMusicVolume()
     {
         audioSrc.volume = musicSlider.value;
         gameData.musicVolume = audioSrc.volume;
     }
 
-    // Обработчик чекбокса со звуком и записью в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє С‡РµРєР±РѕРєСЃР° СЃРѕ Р·РІСѓРєРѕРј Рё Р·Р°РїРёСЃСЊСЋ РІ gameData
     public void SetMusicToggle()
     {
         if (musicToggle.isOn)
@@ -345,7 +345,7 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    // Обработчик чебкокса с музыкой и записью в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє С‡РµР±РєРѕРєСЃР° СЃ РјСѓР·С‹РєРѕР№ Рё Р·Р°РїРёСЃСЊСЋ РІ gameData
     public void SetSoundToggle()
     {
         if (soundToggle.isOn)
@@ -355,16 +355,17 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    // Обработчик кнорпки рестарта. 
+    // РћР±СЂР°Р±РѕС‚С‡РёРє РєРЅРѕСЂРїРєРё СЂРµСЃС‚Р°СЂС‚Р°. 
     public void Restart()
     {
-        gameData.Reset(); // Обнуление gameData
-        gameData.Save(); // И ее перезапись
+        // РћР±РЅСѓР»РµРЅРёРµ gameData Рё РµРµ РїРµСЂРµР·Р°РїРёСЃСЊ
+        gameData.Reset();
+        gameData.Save(); 
         Time.timeScale = 1f; 
-        SceneManager.LoadScene("Menu"); // Возврат к стартовому меню
+        SceneManager.LoadScene("Menu"); // Р’РѕР·РІСЂР°С‚ Рє СЃС‚Р°СЂС‚РѕРІРѕРјСѓ РјРµРЅСЋ
     }
 
-    // Обработчик снятия игры с паузы и установки соответстующиего флага
+    // РћР±СЂР°Р±РѕС‚С‡РёРє СЃРЅСЏС‚РёСЏ РёРіСЂС‹ СЃ РїР°СѓР·С‹ Рё СѓСЃС‚Р°РЅРѕРІРєРё СЃРѕРѕС‚РІРµС‚СЃС‚СѓСЋС‰РёРµРіРѕ С„Р»Р°РіР°
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
@@ -372,7 +373,7 @@ public class PlayerScript : MonoBehaviour
         GameIsPaused = false;
     }
 
-    // Обработчик постановки игры на паузу и установки соответстующиего флага
+    // РћР±СЂР°Р±РѕС‚С‡РёРє РїРѕСЃС‚Р°РЅРѕРІРєРё РёРіСЂС‹ РЅР° РїР°СѓР·Сѓ Рё СѓСЃС‚Р°РЅРѕРІРєРё СЃРѕРѕС‚РІРµС‚СЃС‚СѓСЋС‰РёРµРіРѕ С„Р»Р°РіР°
     void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -380,7 +381,7 @@ public class PlayerScript : MonoBehaviour
         GameIsPaused = true;
     }
 
-    // Обработчик кнопки выхода из игры
+    // РћР±СЂР°Р±РѕС‚С‡РёРє РєРЅРѕРїРєРё РІС‹С…РѕРґР° РёР· РёРіСЂС‹
     public void QuitGame()
     {
         Application.Quit();
