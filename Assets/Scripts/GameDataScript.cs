@@ -10,10 +10,10 @@ public class GameDataScript : ScriptableObject
     public int balls = 6;
     public int points = 0;
     public int pointsToBall = 0;
-    public bool music = true; // Флаг вкюченной музыки
-    public bool sound = true; // Флаг вкюченного звука
-    public int soundVolume = 1; // Значения ползунка громкости звука
-    public float musicVolume = 0.2f; // Значения ползунка громкости музыки
+    public bool music = true; // Г”Г«Г ГЈ ГўГЄГѕГ·ГҐГ­Г­Г®Г© Г¬ГіГ§Г»ГЄГЁ
+    public bool sound = true; // Г”Г«Г ГЈ ГўГЄГѕГ·ГҐГ­Г­Г®ГЈГ® Г§ГўГіГЄГ 
+    public int soundVolume = 1; // Г‡Г­Г Г·ГҐГ­ГЁГї ГЇГ®Г«Г§ГіГ­ГЄГ  ГЈГ°Г®Г¬ГЄГ®Г±ГІГЁ Г§ГўГіГЄГ 
+    public float musicVolume = 0.2f; // Г‡Г­Г Г·ГҐГ­ГЁГї ГЇГ®Г«Г§ГіГ­ГЄГ  ГЈГ°Г®Г¬ГЄГ®Г±ГІГЁ Г¬ГіГ§Г»ГЄГЁ
 
     public void Reset()
     {
@@ -47,7 +47,7 @@ public class GameDataScript : ScriptableObject
         musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.2f);
     }
 
-    public int[] getProbab()
+    public int[] getProbab() //Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РјР°СЃСЃРёРІР° РІРµСЂРѕСЏС‚РЅРѕСЃС‚РµР№ Р±РѕРЅСѓСЃРѕРІ
     {
         int[] probab = new int[6];
         probab[0] = 10; // Probability of +10
