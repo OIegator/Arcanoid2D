@@ -8,13 +8,13 @@ public class MenuScript : MonoBehaviour
 {
     public static AudioSource audioSrc;
 
-    // Поля привязки скрипта к слайдеру и чекбоксу для звука
+    // РџРѕР»СЏ РїСЂРёРІСЏР·РєРё СЃРєСЂРёРїС‚Р° Рє СЃР»Р°Р№РґРµСЂСѓ Рё С‡РµРєР±РѕРєСЃСѓ РґР»СЏ Р·РІСѓРєР°
     [SerializeField]
     Toggle soundToggle;
     [SerializeField]
     Slider soundSlider;
 
-    // Поля привязки скрипта к слайдеру и чекбоксу для музыки
+    // РџРѕР»СЏ РїСЂРёРІСЏР·РєРё СЃРєСЂРёРїС‚Р° Рє СЃР»Р°Р№РґРµСЂСѓ Рё С‡РµРєР±РѕРєСЃСѓ РґР»СЏ РјСѓР·С‹РєРё
     [SerializeField]
     Toggle musicToggle;
     [SerializeField]
@@ -22,23 +22,24 @@ public class MenuScript : MonoBehaviour
 
     public GameDataScript gameData;
 
-    // Поле привязки кнопки выхода из игры 
+    // РџРѕР»Рµ РїСЂРёРІСЏР·РєРё РєРЅРѕРїРєРё РІС‹С…РѕРґР° РёР· РёРіСЂС‹ 
     public GameObject quitButton;
 
     void Start()
     {
-        // Загрузка gameData на старте экрана с меню 
+        // Р—Р°РіСЂСѓР·РєР° gameData РЅР° СЃС‚Р°СЂС‚Рµ СЌРєСЂР°РЅР° СЃ РјРµРЅСЋ 
         audioSrc = Camera.main.GetComponent<AudioSource>();
         if (gameData.resetOnStart) {
             gameData.Load();
         }
-        // При загрузки стартового меню значения слайдеров и чекбоксов беруться из памяти gameData
+
+        // РџСЂРё Р·Р°РіСЂСѓР·РєРё СЃС‚Р°СЂС‚РѕРІРѕРіРѕ РјРµРЅСЋ Р·РЅР°С‡РµРЅРёСЏ СЃР»Р°Р№РґРµСЂРѕРІ Рё С‡РµРєР±РѕРєСЃРѕРІ Р±РµСЂСѓС‚СЊСЃСЏ РёР· РїР°РјСЏС‚Рё gameData
         soundToggle.isOn = gameData.sound;
         soundSlider.value = gameData.soundVolume;
         musicToggle.isOn = gameData.music;
         musicSlider.value = gameData.musicVolume;
 
-        // Проверка активности флага конца игры, оборажающая кнопку выхода на стартовом меню
+        // РџСЂРѕРІРµСЂРєР° Р°РєС‚РёРІРЅРѕСЃС‚Рё С„Р»Р°РіР° РєРѕРЅС†Р° РёРіСЂС‹, РѕР±РѕСЂР°Р¶Р°СЋС‰Р°СЏ РєРЅРѕРїРєСѓ РІС‹С…РѕРґР° РЅР° СЃС‚Р°СЂС‚РѕРІРѕРј РјРµРЅСЋ
         if(PlayerScript.gameFinished)
         {
             quitButton.SetActive(true);
@@ -49,27 +50,27 @@ public class MenuScript : MonoBehaviour
         }
     }
 
-    // Обработчик слайдера со звуком для записи значения в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє СЃР»Р°Р№РґРµСЂР° СЃРѕ Р·РІСѓРєРѕРј РґР»СЏ Р·Р°РїРёСЃРё Р·РЅР°С‡РµРЅРёСЏ РІ gameData
     public void SetSoundVolume()
     {
         gameData.soundVolume = (int)soundSlider.value;
     }
 
-    // Обработчик слайдера с музыкой для записи значения в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє СЃР»Р°Р№РґРµСЂР° СЃ РјСѓР·С‹РєРѕР№ РґР»СЏ Р·Р°РїРёСЃРё Р·РЅР°С‡РµРЅРёСЏ РІ gameData
     public void SetMusicVolume()
     {
         audioSrc.volume = musicSlider.value;
         gameData.musicVolume = audioSrc.volume;
     }
 
-    // Обработчик кнопки начала игры
+    // РћР±СЂР°Р±РѕС‚С‡РёРє РєРЅРѕРїРєРё РЅР°С‡Р°Р»Р° РёРіСЂС‹
     public void PlayGame()
     {
         gameData.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    // Обработчик кнопки выхода из игры
+    // РћР±СЂР°Р±РѕС‚С‡РёРє РєРЅРѕРїРєРё РІС‹С…РѕРґР° РёР· РёРіСЂС‹
     public void QuitGame()
     {
         Application.Quit();
@@ -78,7 +79,7 @@ public class MenuScript : MonoBehaviour
 #endif
     }
 
-    // Обработчик чекбокса с музыкой для записи значения в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє С‡РµРєР±РѕРєСЃР° СЃ РјСѓР·С‹РєРѕР№ РґР»СЏ Р·Р°РїРёСЃРё Р·РЅР°С‡РµРЅРёСЏ РІ gameData
     public void SetMusic()
     {
         if (musicToggle.isOn) 
@@ -93,7 +94,7 @@ public class MenuScript : MonoBehaviour
         }
     }
 
-    // Обработчик чекбокса со звуком для записи значения в gameData
+    // РћР±СЂР°Р±РѕС‚С‡РёРє С‡РµРєР±РѕРєСЃР° СЃРѕ Р·РІСѓРєРѕРј РґР»СЏ Р·Р°РїРёСЃРё Р·РЅР°С‡РµРЅРёСЏ РІ gameData
     public void SetSound()
     {
         if(soundToggle.isOn)
