@@ -29,7 +29,7 @@ public class BlockScript : MonoBehaviour
             {
                 print(points);
                 Destroy(gameObject);
-                playerScript.BlockDestroyed(points, this.gameObject.name, this.gameObject.transform.position);
+                playerScript.BlockDestroyed(points, this.gameObject.name, this.gameObject.transform.position); // Вместе с очками передаём имя и положения блока. Чтобы использовать бонус
             }
             else if (textComponent != null)
                 textComponent.text = hitsToDestroy.ToString();
