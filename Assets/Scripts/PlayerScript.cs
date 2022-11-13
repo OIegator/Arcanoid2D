@@ -72,7 +72,7 @@ public class PlayerScript : MonoBehaviour
         int count = 2;
         if (gameData.balls == 1)
             count = 1;
-        switch (plus)
+        switch (plus) //Проверка, что вызов был совершён из бонусов +2, +10
         {
             case 2:
                 count = 2;
@@ -162,10 +162,9 @@ public class PlayerScript : MonoBehaviour
                 StartCoroutine(BlockDestroyedCoroutine2());
         }
         StartCoroutine(BlockDestroyedCoroutine());
-        if (name == "Green Block(Clone)")
+        if (name == "Green Block(Clone)") // Если разрушен зелёный блок, то вызывается функция создания бонуса
         {
-            int[] probab = gameData.getProbab();
-            //CreateBonus(Random.Range(1,4), pos);
+            int[] probab = gameData.getProbab(); // Получаем вероятности из GameData
             CreateBonus(probab, pos);
         }
     }
@@ -173,8 +172,8 @@ public class PlayerScript : MonoBehaviour
     public void CreateBonus(int[] probab, Vector3 pos)
     {
         int rand = Random.Range(1, 100);
-        var obj = Instantiate(bonusPrefab, pos, Quaternion.identity);
-        if (rand < probab[0])
+        var obj = Instantiate(bonusPrefab, pos, Quaternion.identity); // Создаём префаб шаблон бонуса 
+        if (rand < probab[0]) // В зависимости от вероятности выбриаем бонус. Кладём в шаблон префаба нужный скрипт, цвет, текст и цвет текста
         {
             obj.AddComponent<Plus10>().gameData = gameData;
             obj.GetComponent<Plus10>().textObject = obj.transform.Find("Canvas").gameObject.transform.Find("Bonus Text").gameObject;
